@@ -25,4 +25,21 @@ public class MaterialStyleTest {
         ModuleSettings.configurePreview(prefs);assertFalse(ModuleSettings.frostedMaterial());
         prefs.edit().clear().commit();ModuleSettings.configurePreview(prefs);
     }
+
+    @Test public void liquidGlassToggleCanBeEnabledOrDisabledAndRespectsLowPerformanceMode() {
+        SharedPreferences prefs=RuntimeEnvironment.getApplication().getSharedPreferences("liquid-glass-test",Context.MODE_PRIVATE);
+        prefs.edit().clear().commit();
+        ModuleSettings.configurePreview(prefs);
+        assertFalse("Progressive liquid glass is disabled by default",ModuleSettings.liquidGlass());
+        prefs.edit().putBoolean(ModuleSettings.KEY_LIQUID_GLASS,true).commit();
+        ModuleSettings.configurePreview(prefs);
+        assertTrue("Progressive liquid glass enables when toggled on",ModuleSettings.liquidGlass());
+        prefs.edit().putBoolean(ModuleSettings.KEY_LOW_PERFORMANCE,true).commit();
+        ModuleSettings.configurePreview(prefs);
+        assertFalse("Low performance mode disables liquid glass shader",ModuleSettings.liquidGlass());
+        prefs.edit().putBoolean(ModuleSettings.KEY_LOW_PERFORMANCE,false).putBoolean(ModuleSettings.KEY_LIQUID_GLASS,false).commit();
+        ModuleSettings.configurePreview(prefs);
+        assertFalse("Progressive liquid glass disables when toggled off",ModuleSettings.liquidGlass());
+        prefs.edit().clear().commit();ModuleSettings.configurePreview(prefs);
+    }
 }

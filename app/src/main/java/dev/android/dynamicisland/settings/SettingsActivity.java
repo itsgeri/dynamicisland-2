@@ -327,6 +327,7 @@ public final class SettingsActivity extends Activity {
         choice(design, R.string.material_style, new int[]{R.string.material_frosted, R.string.material_classic},
                 ModuleSettings.readMaterialStyle(prefs),
                 selected -> prefs.edit().putInt(ModuleSettings.KEY_MATERIAL_STYLE, selected).apply());
+        toggle(design, R.string.liquid_glass, R.string.liquid_glass_desc, ModuleSettings.KEY_LIQUID_GLASS, false);
         ui.linkRow(design, getString(R.string.accent_page), getString(R.string.accent_page_sum), () -> open(appearance::open));
         ui.linkRow(design, getString(R.string.glow_title), getString(R.string.glow_summary),
                 () -> open(() -> new AmbientGlowScreen(this, ui, prefs).open()));

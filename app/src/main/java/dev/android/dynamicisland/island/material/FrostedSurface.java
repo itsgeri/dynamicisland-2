@@ -31,7 +31,7 @@ public final class FrostedSurface {
     private final float[] common=new float[12],edge=new float[16],shadow=new float[16];
 
     public static boolean requested() {
-        return !unavailable&&ModuleSettings.frostedMaterial()&&!ModuleSettings.lowPerformance();
+        return !unavailable&&(ModuleSettings.frostedMaterial()||ModuleSettings.liquidGlass())&&!ModuleSettings.lowPerformance();
     }
     public static boolean canUse(MaterialFrame frame) {
         return requested()&&frame!=null&&!frame.bitmap.isRecycled();
@@ -100,6 +100,7 @@ public final class FrostedSurface {
             blend=blend*blend*(3-2*blend);
             shader.setFloatUniform("captureAmount",blend);
             shader.setFloatUniform("materialAmount",Math.max(0,Math.min(1,amount)));
+            shader.setFloatUniform("liquidGlass",ModuleSettings.liquidGlass() ? 1f : 0f);
             int save=canvas.save();canvas.translate(bounds.left,bounds.top);
             canvas.drawRect(0,0,bounds.width(),bounds.height(),paint);canvas.restoreToCount(save);
             Diagnostics.fact("card material",current.frame==null ? "frosted GPU; stable local backdrop" : "frosted GPU; interpolated captured backdrop; G2 curved lighting");

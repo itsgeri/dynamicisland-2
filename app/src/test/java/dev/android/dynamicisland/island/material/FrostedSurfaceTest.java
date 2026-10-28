@@ -130,4 +130,38 @@ public class FrostedSurfaceTest {
         surface.clear();node.discardDisplayList();
         prefs.edit().clear().commit();ModuleSettings.configurePreview(prefs);
     }
+
+    @Test public void progressiveLiquidGlassStartsBlackAtTopAndProgressivelyOpensTowardBottom() {
+        SharedPreferences prefs=RuntimeEnvironment.getApplication().getSharedPreferences("liquid-glass-render-test",0);
+        prefs.edit().clear().putBoolean(ModuleSettings.KEY_LIQUID_GLASS,true).commit();
+        ModuleSettings.configurePreview(prefs);
+        assertTrue(FrostedSurface.requested());
+        int[] emerald=new int[116*160];java.util.Arrays.fill(emerald,0xff28d888);
+        MaterialPixels data=MaterialPixels.fromArgb(emerald,116,160).blur();
+        Bitmap bitmap=Bitmap.createBitmap(data.argb(),116,160,Bitmap.Config.ARGB_8888);
+        MaterialFrame frame=new MaterialFrame(bitmap,data,new Rect(0,0,1164,1600),1164);
+        RectF bounds=new RectF(46,153,1118,400);
+        RenderNode node=new RenderNode("Progressive liquid glass");node.setPosition(0,0,1164,1600);
+        Canvas canvas=node.beginRecording();
+        FrostedSurface surface=new FrostedSurface();
+        // Early expansion (amount = 0.25): top and middle remain dark while bottom begins opening
+        assertTrue(surface.draw(canvas,frame,bounds,100,0.25f,null,1000));
+        Bitmap early=paintedShell(surface,1072,247);
+        // Full expansion (amount = 1.0): top remains solid black while bottom opens into refractive emerald liquid glass
+        assertTrue(surface.draw(canvas,frame,bounds,100,1.0f,null,1016));
+        Bitmap expanded=paintedShell(surface,1072,247);
+        int topPixel=expanded.getPixel(536,20);
+        int midPixel=expanded.getPixel(536,125);
+        int bottomPixel=expanded.getPixel(536,225);
+        int topGreen=android.graphics.Color.green(topPixel);
+        int midGreen=android.graphics.Color.green(midPixel);
+        int bottomGreen=android.graphics.Color.green(bottomPixel);
+        assertTrue("Top of expanded liquid glass card starts black (topGreen="+topGreen+")",topGreen<15);
+        assertTrue("Card progressively transitions from black top to translucent middle (midGreen="+midGreen+")",midGreen>topGreen+20);
+        assertTrue("Bottom of card reaches luminous liquid glass (bottomGreen="+bottomGreen+", midGreen="+midGreen+")",bottomGreen>midGreen+40);
+        int earlyBottomGreen=android.graphics.Color.green(early.getPixel(536,225));
+        assertTrue("Liquid glass progressively intensifies as the pill expands",bottomGreen>earlyBottomGreen+40);
+        node.endRecording();node.discardDisplayList();surface.clear();
+        prefs.edit().clear().commit();ModuleSettings.configurePreview(prefs);
+    }
 }

@@ -534,6 +534,8 @@
     <string name="material_style">Card material</string>
     <string name="material_frosted">Frosted glass</string>
     <string name="material_classic">Classic</string>
+    <string name="liquid_glass">Progressive liquid glass</string>
+    <string name="liquid_glass_desc">Cards start solid black at the top and progressively transition into refractive liquid glass toward the bottom as the pill expands.</string>
 
     <!-- Settings search. search_terms_* and search_stop_words are search vocabulary, not visible UI.
          Translate with common local synonyms; keep product names where useful. -->
@@ -548,7 +550,7 @@
     <string name="search_parent_hint">To reveal this setting, first check “%1$s”.</string>
     <string name="search_unavailable">Search is temporarily unavailable. Try again.</string>
     <string name="search_stop_words">a an the and of to for how do i my want change setting settings enable disable turn on off please</string>
-    <string name="search_terms_material">blur frosted glass transparent transparency translucency classic surface frost background</string>
+    <string name="search_terms_material">blur frosted liquid glass progressive black gradient refractive transparent transparency translucency classic surface frost background</string>
     <string name="search_terms_shape">corner corners curvature radius rounded rounding outline border dimensions size capsule pill</string>
     <string name="search_terms_music">song songs music audio album artwork player media sound playback</string>
     <string name="search_terms_battery">charge charging charger battery current voltage watt power temperature percent</string>

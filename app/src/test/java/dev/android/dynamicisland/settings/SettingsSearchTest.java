@@ -30,6 +30,7 @@ public class SettingsSearchTest {
             assertTrue(catalog.rows.size()>65);
             for(String query:new String[]{"블러","blur","ぼかし","毛玻璃","размытие"})
                 assertEquals(R.string.material_style,catalog.rows.get(catalog.engine.search(query,10).get(0).id).title);
+            assertEquals(R.string.liquid_glass,catalog.rows.get(catalog.engine.search("liquid glass",10).get(0).id).title);
             assertEquals(R.string.low_performance_mode,catalog.rows.get(catalog.engine.search("DÜŞÜK PERFORMANS",10).get(0).id).title);
             assertEquals(R.string.setting_paused_timeout,catalog.rows.get(catalog.engine.search("노래 멈추면",10).get(0).id).title);
             assertFalse(catalog.engine.search("glwo",10).isEmpty());

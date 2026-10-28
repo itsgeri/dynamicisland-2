@@ -41,6 +41,8 @@ public final class ModuleSettings {
     public static final String KEY_LOW_PERFORMANCE = "low_performance_mode";
     public static final String KEY_MATERIAL_STYLE = "material_style";
     public static final int MATERIAL_FROSTED = 0, MATERIAL_CLASSIC = 1;
+    /** Progressive top-black to bottom-liquid-glass transition when expanding the pill. */
+    public static final String KEY_LIQUID_GLASS = "liquid_glass";
     /** Keep active content visible when a portrait app hides the status bar. */
     public static final String KEY_SHOW_IN_FULLSCREEN = "show_in_fullscreen";
     /** Plays the animations of version 0.1.3 and before instead of the smoothed ones. */
@@ -167,6 +169,7 @@ public final class ModuleSettings {
     private static volatile boolean haptics = true;
     private static volatile boolean lowPerformance;
     private static volatile int materialStyle = MATERIAL_CLASSIC;
+    private static volatile boolean liquidGlass;
     private static volatile boolean showInFullscreen;
     private static volatile boolean legacyAnimation;
     private static volatile boolean headsUpIsland = true;
@@ -484,6 +487,7 @@ public final class ModuleSettings {
             haptics = source.getBoolean(KEY_HAPTICS, true);
             lowPerformance = source.getBoolean(KEY_LOW_PERFORMANCE, false);
             materialStyle = readMaterialStyle(source);
+            liquidGlass = source.getBoolean(KEY_LIQUID_GLASS, false);
             legacyAnimation = source.getBoolean(KEY_LEGACY_ANIMATION, false);
             pillOutlineMode = readPillOutlineMode(source);
             headsUpIsland = source.getBoolean(KEY_HEADS_UP_ISLAND, true);
@@ -575,6 +579,7 @@ public final class ModuleSettings {
         pillOutlineMode = readPillOutlineMode(settings);
         lowPerformance = settings.getBoolean(KEY_LOW_PERFORMANCE, false);
         materialStyle = readMaterialStyle(settings);
+        liquidGlass = settings.getBoolean(KEY_LIQUID_GLASS, false);
         torchStyle = settings.getInt(KEY_TORCH_STYLE, 0) == 1 ? 1 : 0;
         showInFullscreen = settings.getBoolean(KEY_SHOW_IN_FULLSCREEN, false);
         eventCharging = settings.getBoolean(KEY_EVENT_CHARGING, true);
@@ -611,6 +616,7 @@ public final class ModuleSettings {
         return source.getInt(KEY_MATERIAL_STYLE, MATERIAL_CLASSIC) == MATERIAL_FROSTED ? MATERIAL_FROSTED : MATERIAL_CLASSIC;
     }
     public static boolean frostedMaterial() { ensureStarted(); return materialStyle == MATERIAL_FROSTED; }
+    public static boolean liquidGlass() { ensureStarted(); return liquidGlass && !lowPerformance; }
     public static boolean showInFullscreen() { ensureStarted(); return showInFullscreen; }
     public static boolean chargingInfo() { ensureStarted(); return eventCharging && chargingInfo; }
     public static boolean stockChargingAnimation() { ensureStarted(); return stockChargingAnimation; }
@@ -648,19 +654,19 @@ public final class ModuleSettings {
         return "" + ambientGlow + glowAlbum + glowFollowTheme + glowStrength + "/motion=" + glowMotion + "/musicOnly=" + glowMusicOnly + "/" + glowColour + lowPerformance + foregroundNotifications + autoOpenCards + autoOpenS + experimentalRecovery + compactEventIcons + hideBatteryIcon + accentCustom + accentColor + eventCharging + eventRinger + eventBluetooth + eventToggles + torchPill + "/torchStyle=" + torchStyle + headsUpIsland + allNotifications + progressNotifications + hideProgressOriginals
                 + smartRules + privacyIndicator + privacyLocation + otpCard + otpAutoCopy + thirdPartyCalls + visualizer + colorIcons + shadeMedia + cardHeader
                 + "/devices=" + chargingInfo + "/" + chargingStats + "/" + eventHeadset + "/stockCharging=" + stockChargingAnimation + "/recordingInput=" + concurrentRecordingInput
-                + "/material=" + materialStyle + "/roundness=" + customCardRoundness + "/" + cardCornerRadiusDp + "/outline=" + pillOutlineMode + "/" + appFilter.onlyListed() + appFilter.size();
+                + "/material=" + materialStyle + "/liquidGlass=" + liquidGlass + "/roundness=" + customCardRoundness + "/" + cardCornerRadiusDp + "/outline=" + pillOutlineMode + "/" + appFilter.onlyListed() + appFilter.size();
     }
 
     /** One line in the event log whenever the values the module runs on differ from the last read. */
     private static void logChanges(SharedPreferences source) {
-        String now = "glow=" + ambientGlow + "/" + glowAlbum + "/" + glowFollowTheme + "/" + glowStrength + "/" + glowColour + "/motion=" + glowMotion + "/musicOnly=" + glowMusicOnly + " lowPerformance=" + lowPerformance + " haptics=" + haptics + " legacyAnimation=" + legacyAnimation + " visualizer=" + visualizer + " cardHeader=" + cardHeader
+        String now = "glow=" + ambientGlow + "/" + glowAlbum + "/" + glowFollowTheme + "/" + glowStrength + "/" + glowColour + "/motion=" + glowMotion + "/musicOnly=" + glowMusicOnly + " lowPerformance=" + lowPerformance + " liquidGlass=" + liquidGlass + " haptics=" + haptics + " legacyAnimation=" + legacyAnimation + " visualizer=" + visualizer + " cardHeader=" + cardHeader
                 + " recovery=" + experimentalRecovery + " foregroundNotifications=" + foregroundNotifications + " autoOpen=" + autoOpenCards + " customAccent=" + accentCustom + " hideBattery=" + hideBatteryIcon + " headsUpIsland=" + headsUpIsland + " progress=" + progressNotifications + " hideOriginals=" + hideProgressOriginals
                 + " smartRules=" + smartRules + " otp=" + otpCard + "/" + otpAutoCopy + " calls3p=" + thirdPartyCalls
                 + " privacy=" + privacyIndicator + "/" + privacyLocation + " events=" + eventCharging + "/" + eventRinger + "/" + eventBluetooth
                 + " pill=" + pillAnchor + "/" + pillXDp + "/" + pillYDp + " size=" + pillHPct + "/" + pillMinWDp + "/" + pillMaxWDp + "/" + keepPillWidth + " hole=" + holeMode + "/" + holeDDp + "/" + holeXDp + "/" + holeYDp + " pausedS=" + pausedTimeoutS + " collapseS=" + autoCollapseS + " rules=" + rulesConfig.revision
                 + " pillOutline=" + pillOutlineMode + " showInFullscreen=" + showInFullscreen + " appFilter=" + (appFilter.onlyListed() ? "only " : "except ") + appFilter.size();
         Diagnostics.fact("pill outline mode", Integer.toString(pillOutlineMode));
-        Diagnostics.fact("card material selected", materialStyle == MATERIAL_CLASSIC ? "classic" : "frosted");
+        Diagnostics.fact("card material selected", (materialStyle == MATERIAL_CLASSIC ? "classic" : "frosted") + (liquidGlass ? "+liquid" : ""));
         Diagnostics.fact("optional device cards", "charging=" + chargingInfo + " statistics=" + chargingStats + " headset=" + eventHeadset + " stockCharging=" + stockChargingAnimation);
         Diagnostics.fact("settings file", prefs.getFile() + " readable=" + prefs.getFile().canRead() + " keys=" + prefs.getAll().size());
         Diagnostics.fact("settings source", viaProvider ? "provider (" + source.getAll().size() + " keys)" : "preference file (" + source.getAll().size() + " keys)");

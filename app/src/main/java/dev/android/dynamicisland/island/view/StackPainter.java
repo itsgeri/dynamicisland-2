@@ -252,8 +252,22 @@ final class StackPainter {
         if(frosted&&c.material.animating(t)&&materialFrameRequester!=null)materialFrameRequester.run();
         if(canFrost&&!frosted&&materialFrameRequester!=null)materialFrameRequester.run();
         if (!frosted) {
-            paints.card.setColor(fillColor(opening, blurFraction(c, opening)));
-            canvas.drawRoundRect(r, corner, corner, paints.card);
+            if (ModuleSettings.liquidGlass()) {
+                float open = Easing.easeInOut(clamp01(opening));
+                float blackStop = lerp(0.78f, 0.22f, open);
+                int midGlass = Colors.blend(Colors.BLACK, 0xCC121E1B, open);
+                int bottomGlass = Colors.blend(Colors.BLACK, 0x42244A40, open);
+                paints.card.setColor(Colors.WHITE);
+                paints.card.setShader(new LinearGradient(0.0f, r.top, 0.0f, r.bottom,
+                        new int[]{Colors.BLACK, Colors.BLACK, midGlass, bottomGlass},
+                        new float[]{0.0f, blackStop, lerp(blackStop, 1.0f, 0.55f), 1.0f},
+                        Shader.TileMode.CLAMP));
+                canvas.drawRoundRect(r, corner, corner, paints.card);
+                paints.card.setShader(null);
+            } else {
+                paints.card.setColor(fillColor(opening, blurFraction(c, opening)));
+                canvas.drawRoundRect(r, corner, corner, paints.card);
+            }
         }
         int morphOutline = Colors.withAlpha(c.leaving ? Colors.PILL_OUTLINE : MORPH_OUTLINE, scene.pillOutlineOpacity());
         paints.cardStroke.setShader(ModuleSettings.legacyAnimation()
@@ -301,6 +315,7 @@ final class StackPainter {
     }
 
     static float frostedAmount(float opening) {
+        if (ModuleSettings.liquidGlass()) return Easing.easeInOut(clamp01(opening));
         return Easing.easeInOut(clamp01(opening / FROSTED_FULL_AT));
     }
 

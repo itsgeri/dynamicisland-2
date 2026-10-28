@@ -525,6 +525,8 @@
     <string name="material_style">卡片材质</string>
     <string name="material_frosted">磨砂玻璃</string>
     <string name="material_classic">经典</string>
+    <string name="liquid_glass">渐进式液态玻璃</string>
+    <string name="liquid_glass_desc">胶囊展开时，卡片顶部从纯黑开始，向下逐渐过渡为通透折射的液态玻璃质感。</string>
 
     <!-- Settings search. search_terms_* and search_stop_words are search vocabulary, not visible UI.
          Translate with common local synonyms; keep product names where useful. -->
@@ -539,7 +541,7 @@
     <string name="search_parent_hint">要显示此选项，请先检查“%1$s”。</string>
     <string name="search_unavailable">搜索暂时不可用，请重试。</string>
     <string name="search_stop_words">怎么 如何 设置 调整 开启 关闭 的 和</string>
-    <string name="search_terms_material">模糊 毛玻璃 玻璃 透明 半透明 透明度 经典 材质 背景</string>
+    <string name="search_terms_material">模糊 毛玻璃 液态玻璃 渐进 渐变 黑色 玻璃 透明 半透明 透明度 经典 材质 背景</string>
     <string name="search_terms_shape">圆角 曲率 弧度 半径 边框 轮廓 大小 胶囊</string>
     <string name="search_terms_music">歌曲 音乐 音频 专辑 封面 播放 播放器</string>
     <string name="search_terms_battery">充电 充电器 电池 电量 电流 电压 功率 温度 百分比</string>

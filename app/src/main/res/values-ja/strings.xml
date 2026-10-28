@@ -525,6 +525,8 @@
     <string name="material_style">カードの質感</string>
     <string name="material_frosted">すりガラス</string>
     <string name="material_classic">クラシック</string>
+    <string name="liquid_glass">プログレッシブ・リキッドガラス</string>
+    <string name="liquid_glass_desc">ピルが展開するとき、上部は黒から始まり、下部に向かって透明感のあるリキッドガラスへと段階的に変化します。</string>
 
     <!-- Settings search. search_terms_* and search_stop_words are search vocabulary, not visible UI.
          Translate with common local synonyms; keep product names where useful. -->
@@ -539,7 +541,7 @@
     <string name="search_parent_hint">この項目を表示するには、先に「%1$s」を確認してください。</string>
     <string name="search_unavailable">現在検索できません。もう一度お試しください。</string>
     <string name="search_stop_words">の を が は に と で する したい 設定 変更 方法 オン オフ</string>
-    <string name="search_terms_material">ぼかし ブラー ガラス 半透明 透明度 透過 クラシック 素材 背景</string>
+    <string name="search_terms_material">ぼかし ブラー ガラス リキッドガラス プログレッシブ 黒 グラデーション 半透明 透明度 透過 クラシック 素材 背景</string>
     <string name="search_terms_shape">角 丸み 曲率 半径 角丸 輪郭 枠 サイズ カプセル</string>
     <string name="search_terms_music">曲 音楽 オーディオ アルバム ジャケット 再生 プレーヤー</string>
     <string name="search_terms_battery">充電 充電器 バッテリー 電池 残量 電流 電圧 電力 温度</string>

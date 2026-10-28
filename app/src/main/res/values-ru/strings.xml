@@ -525,6 +525,8 @@
     <string name="material_style">Материал карточек</string>
     <string name="material_frosted">Матовое стекло</string>
     <string name="material_classic">Классический</string>
+    <string name="liquid_glass">Прогрессивное жидкое стекло</string>
+    <string name="liquid_glass_desc">При раскрытии капсулы карточка начинается с глубокого чёрного цвета сверху и плавно переходит в преломляющее жидкое стекло книзу.</string>
 
     <!-- Settings search. search_terms_* and search_stop_words are search vocabulary, not visible UI.
          Translate with common local synonyms; keep product names where useful. -->
@@ -539,7 +541,7 @@
     <string name="search_parent_hint">Чтобы увидеть этот пункт, сначала проверьте «%1$s».</string>
     <string name="search_unavailable">Поиск временно недоступен. Попробуйте ещё раз.</string>
     <string name="search_stop_words">как где изменить включить выключить настройки мне для и в на</string>
-    <string name="search_terms_material">размытие стекло матовое прозрачность полупрозрачность классический материал фон</string>
+    <string name="search_terms_material">размытие стекло жидкое прогрессивное градиент матовое прозрачность полупрозрачность классический материал фон</string>
     <string name="search_terms_shape">углы скругление кривизна радиус рамка контур размер капсула</string>
     <string name="search_terms_music">песня музыка аудио альбом обложка плеер воспроизведение</string>
     <string name="search_terms_battery">зарядка заряд батарея аккумулятор ток напряжение мощность температура проценты</string>

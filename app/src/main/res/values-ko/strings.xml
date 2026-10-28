@@ -525,6 +525,8 @@
     <string name="material_style">카드 재질</string>
     <string name="material_frosted">프로스티드 글라스</string>
     <string name="material_classic">클래식</string>
+    <string name="liquid_glass">프로그레시브 리퀴드 글라스</string>
+    <string name="liquid_glass_desc">알약이 펼쳐질 때 상단은 순수한 블랙으로 시작해 하단으로 갈수록 굴절되는 리퀴드 글라스로 자연스럽게 전환됩니다.</string>
 
     <!-- Settings search. search_terms_* and search_stop_words are search vocabulary, not visible UI.
          Translate with common local synonyms; keep product names where useful. -->
@@ -539,7 +541,7 @@
     <string name="search_parent_hint">이 항목을 표시하려면 먼저 ‘%1$s’ 설정을 확인하세요.</string>
     <string name="search_unavailable">지금은 검색할 수 없습니다. 다시 시도해 주세요.</string>
     <string name="search_stop_words">어떻게 방법 설정 하고 싶어 싶은 해줘 바꾸기 켜기 끄기 켜줘 꺼줘 것 걸 좀 제 내 관련 이거</string>
-    <string name="search_terms_material">블러 흐림 유리 글래스 아크릴 반투명 투명도 투과율 클래식 재질 배경 프로스티드</string>
+    <string name="search_terms_material">블러 흐림 유리 리퀴드 글래스 글라스 프로그레시브 블랙 그라데이션 아크릴 반투명 투명도 투과율 클래식 재질 배경 프로스티드</string>
     <string name="search_terms_shape">모서리 곡률 곡선 둥글기 라운드 반지름 테두리 크기 캡슐 알약</string>
     <string name="search_terms_music">노래 음악 뮤직 오디오 앨범 커버 아트 재생 플레이어 소리</string>
     <string name="search_terms_battery">충전 충전기 배터리 밧데리 잔량 전류 전압 와트 전력 온도 퍼센트</string>
